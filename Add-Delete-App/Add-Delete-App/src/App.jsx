@@ -6,6 +6,8 @@ export default function DynamicTable() {
     { id: 1, name: "Noor Khan", email: "xyz123@gmail.com", salary: "80,000" },
     { id: 2, name: "Nagma Praveen", email: "xyz124@gmail.com", salary: "35,000" },
     { id: 3, name: "Amit Kumar", email: "xyz125@gmail.com", salary: "18,000" },
+    { id: 4, name: "Ayushi Kumar", email: "xyz126@gmail.com", salary: "18,000" },
+    { id: 5, name: "meet Kumar", email: "xyz127@gmail.com", salary: "18,000" },
   ]);
 
   const handleChange = (id, field, value) => {
