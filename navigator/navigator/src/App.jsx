@@ -4,7 +4,7 @@ import { Button, Table, Modal, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  // Load from localStorage or use default list
+
   const [items, setItems] = useState(() => {
     const stored = localStorage.getItem('items');
     return stored ? JSON.parse(stored) : [
@@ -17,7 +17,6 @@ function App() {
     ];
   });
 
-  // Save to localStorage whenever items change
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
   }, [items]);
@@ -47,7 +46,7 @@ function App() {
       setItems(updated);
     } else {
       const newItem = {
-        id: Date.now(), // unique id using timestamp
+        id: Date.now(),
         title: form.title,
         description: form.description
       };
@@ -97,15 +96,13 @@ function App() {
                   <Button variant="outline-success" size="sm" className="me-2" onClick={() => handleEdit(index)}>
                     <FaEdit />
                   </Button>
-                  <Button variant="outline-danger" size="sm" onClick={() => handleDelete(index)}>🗑️</Button>
+                  <Button variant="outline-danger" size="sm" onClick={() => handleDelete(index)}>Delete</Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
-
-      {/* Modal for Add/Edit */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{editIndex !== null ? "Edit Item" : "Add Item"}</Modal.Title>
