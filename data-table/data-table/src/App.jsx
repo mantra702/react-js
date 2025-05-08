@@ -1,25 +1,19 @@
-// App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import FormPage from './FormPage';
-import ViewPage from './ViewPage';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import AddUser from './pages/AddUser';
+import ViewUsers from './pages/ViewUsers';
+import EditUser from './pages/EditUser';
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <nav className="navbar">
-          <Link to="/" className='text-decoration-none'>Form page</Link>
-          <Link to="/view"className='text-decoration-none'>View Users</Link>
-        </nav>
-
-        <Routes>
-          <Route path="/" element={<FormPage />} />
-          <Route path="/view" element={<ViewPage />} />
-        </Routes>
-      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/view" />} />
+        <Route path="/add" element={<AddUser />} />
+        <Route path="/view" element={<ViewUsers />} />
+        <Route path="/edit/:id" element={<EditUser />} />
+      </Routes>
     </Router>
   );
 }
