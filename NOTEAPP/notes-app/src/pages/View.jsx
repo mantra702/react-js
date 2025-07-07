@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteNote, updateNote } from '../features/notes/notesReducer';
+import { deleteNote, updateNote } from '../features/notes/notesSlice';
 import { useState } from 'react';
 
 function View() {

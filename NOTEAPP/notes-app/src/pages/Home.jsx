@@ -1,6 +1,6 @@
-
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addNote } from '../features/notes/notesReducer';
+import { addNote } from '../features/notes/notesSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
