@@ -1,0 +1,159 @@
+/* Login.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  height: 100%;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 28px;
+  color: #333;
+}
+
+.login-subtitle {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #666;
+  font-size: 14px;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  transition: 0.2s ease;
+  outline: none;
+  background: #f7f8fa;
+}
+
+.input-group input:focus {
+  border-color: #4a90e2;
+  background-color: #fff;
+}
+
+.input-error {
+  border-color: red !important;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.btn-login {
+  width: 100%;
+  background: #4a90e2;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background 0.2s ease;
+}
+
+.btn-login:hover {
+  background: #357ab7;
+}
+
+.divider {
+  text-align: center;
+  margin: 18px 0;
+  color: #aaa;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 40%;
+  top: 50%;
+  background-color: #ccc;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.btn-google {
+  width: 100%;
+  background: #ffffff;
+  color: #444;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.btn-google img {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-google:hover {
+  box-shadow: 0 0 10px rgba(66, 133, 244, 0.2);
+}
+
+.register-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #444;
+}
+
+.register-text a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}

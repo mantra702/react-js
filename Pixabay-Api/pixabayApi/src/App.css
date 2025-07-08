@@ -1,42 +1,70 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Reset & Body */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f3f3;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Control Bar */
+.control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.control-bar input,
+.control-bar select,
+.control-bar button {
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
 }
 
-.card {
-  padding: 2em;
+.control-bar button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
 }
 
-.read-the-docs {
-  color: #888;
+.control-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Image Grid */
+.image-grid-only {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+/* Image Card */
+.image-card-only {
+  overflow: hidden;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Image */
+.image-only {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image-only:hover {
+  transform: scale(1.05);
 }

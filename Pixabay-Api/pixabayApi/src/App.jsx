@@ -1,97 +1,69 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "./Components/Navbar";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
-import Card from "react-bootstrap/Card";
+import "./App.css";
 
 export default function App() {
   const APIKEY = "47197584-69e542ae256d7d78ce1f21b38";
-
   const [wallpaper, setWallpaper] = useState([]);
   const [search, setSearch] = useState("");
-  const [imageType, setImageType] = useState("all");
+  const [size, setSize] = useState("medium");
+  const [orientation, setOrientation] = useState("all");
 
   useEffect(() => {
-    fetchWallpaperImages();
+    fetchImages();
   }, []);
 
-  // useEffect(() => {
-  //   fetchWallpaperImagesWithSearch(search);
-  // }, [search]);
-
-  const fetchWallpaperImages = async () => {
-    const res = await axios.get(
-      `https://pixabay.com/api/?key=${APIKEY}&per_page=100&image_type=${imageType}`
-    );
-
-    const data = res.data;
-
-    setWallpaper(data.hits);
+  const fetchImages = async (query = "") => {
+    const url = `https://pixabay.com/api/?key=${APIKEY}&q=${query}&per_page=100&image_type=photo&orientation=${orientation}`;
+    const res = await axios.get(url);
+    setWallpaper(res.data.hits);
   };
 
-  const fetchWallpaperImagesWithSearch = async (q) => {
-    const API = `https://pixabay.com/api/?key=${APIKEY}&q=${q}&image_type=all&orientation=all&per_page=100&image_type=${imageType}`;
+  const getImageBySize = (image) => {
+    if (size === "small") return image.previewURL;
+    if (size === "large") return image.largeImageURL;
+    return image.webformatURL;
+  };
 
-    const res = await axios.get(API);
-
-    const data = res.data;
-
-    setWallpaper(data.hits);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchImages(search);
   };
 
   return (
     <>
-      <NavBar />
+      <form className="control-bar" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search images..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-      <h3 className="mt-5">
-        Stunning royalty-free images & royalty-free stock
-      </h3>
+        <select value={size} onChange={(e) => setSize(e.target.value)}>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
 
-      <div className="d-flex justify-content-center">
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control
-            type="text"
-            placeholder="Search here...."
-            onChange={(event) => setSearch(event.target.value)}
-          />
+        <select
+          value={orientation}
+          onChange={(e) => setOrientation(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="horizontal">Horizontal</option>
+          <option value="vertical">Vertical</option>
+        </select>
 
-          <Button onClick={() => fetchWallpaperImagesWithSearch(search)}>
-            Search
-          </Button>
-        </Form.Group>
-      </div>
+        <button type="submit">Search</button>
+      </form>
 
-      <div className="d-flex justify-content-center">
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <select onChange={(event) => setImageType(event.target.value)}>
-              <option value="">Select</option>
-              <option value="all">All</option>
-              <option value="photo">Photo</option>
-              <option value="illustration">Illustration</option>
-              <option value="vector">Vector</option>
-            </select>
-          </Form.Group>
-        </Form>
-      </div>
-
-      <h6>
-        {search} Items {imageType}
-      </h6>
-
-      <div className="container">
-        <div className="row">
-          {wallpaper.map((image, index) => {
-            return (
-              <div className="col-md-4">
-                <Card style={{ width: "18rem", margin: "10px" }}>
-                  <Card.Img variant="top" src={image.webformatURL} />
-                </Card>
-              </div>
-            );
-          })}
-        </div>
+      <div className="image-grid-only">
+        {wallpaper.map((img, index) => (
+          <div className="image-card-only" key={index}>
+            <img src={getImageBySize(img)} alt={img.tags} className="image-only" />
+          </div>
+        ))}
       </div>
     </>
   );
