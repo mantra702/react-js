@@ -1,70 +1,111 @@
-/* Reset & Body */
 body {
   margin: 0;
-  padding: 0;
-  background-color: #f3f3f3;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #f9fafc, #eef1f5);
 }
 
-/* Control Bar */
-.control-bar {
+.gallery-controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  background: #fff;
+  gap: 12px;
+  padding: 20px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #ddd;
 }
 
-.control-bar input,
-.control-bar select,
-.control-bar button {
-  padding: 10px 14px;
+.gallery-controls input, .gallery-controls select, .gallery-controls button {
+  padding: 10px 16px;
+  border-radius: 30px;
   font-size: 14px;
-  border-radius: 20px;
   border: 1px solid #ccc;
+  background-color: white;
+  transition: all 0.2s ease;
 }
 
-.control-bar button {
+.gallery-controls input {
+  width: 240px;
+}
+
+.gallery-controls button {
   background-color: #007bff;
   color: white;
-  cursor: pointer;
+  font-weight: 500;
   border: none;
+  cursor: pointer;
 }
 
-.control-bar button:hover {
+.gallery-controls button:hover {
   background-color: #0056b3;
 }
 
-/* Image Grid */
-.image-grid-only {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
-  padding: 20px;
+.gallery-container {
+  max-width: 1650px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Image Card */
-.image-card-only {
+.masonry-gallery {
+  column-count: 5;       
+  column-gap: 20px;
+  padding: 30px 0;
+}
+
+.masonry-card {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-/* Image */
-.image-only {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
+  background: #fff;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease;
 }
 
-.image-only:hover {
+.masonry-card:hover {
+  transform: translateY(-4px);
+}
+
+.masonry-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.masonry-card:hover img {
   transform: scale(1.05);
+}
+
+@media (max-width: 1700px) {
+  .masonry-gallery {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1100px) {
+  .masonry-gallery {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-gallery {
+    column-count: 1;
+  }
+
+  .gallery-controls input {
+    width: 90%;
+  }
 }
