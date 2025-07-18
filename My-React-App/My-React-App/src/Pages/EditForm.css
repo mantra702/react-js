@@ -1,0 +1,167 @@
+/* FORM WRAPPER */
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f1f4f9, #dff1ff);
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* FORM CONTAINER */
+.form-container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 480px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* FORM TITLE */
+.form-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  position: relative;
+}
+
+.form-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #007bff;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* INPUT GROUP */
+.input-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  color: #888;
+  font-size: 15px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+  top: -12px;
+  left: 0px;
+  font-size: 13px;
+  color: #007bff;
+}
+
+/* CHECKBOX GROUP */
+.checkbox-group {
+  margin-bottom: 25px;
+}
+
+.checkbox-group label {
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.checkbox-options label {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 14px;
+  color: #444;
+}
+
+.checkbox-options input {
+  margin-right: 6px;
+}
+
+/* SELECT GROUP */
+.select-group {
+  margin-bottom: 30px;
+}
+
+.select-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.select-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  transition: border 0.3s;
+}
+
+.select-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2);
+}
+
+.submit-btn:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px 20px;
+  }
+}

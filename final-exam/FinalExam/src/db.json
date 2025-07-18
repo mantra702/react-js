@@ -1,0 +1,12 @@
+{
+  "rooms": [
+    { "id": 1, "number": "101", "type": "Deluxe", "status": "Available" },
+    { "id": 2, "number": "102", "type": "Suite", "status": "Booked" }
+  ],
+  "customers": [
+    { "id": 1, "name": "John Doe", "contact": "9876543210" }
+  ],
+  "bookings": [
+    { "id": 1, "roomId": 2, "customerId": 1, "date": "2025-07-20" }
+  ]
+}

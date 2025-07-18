@@ -1,23 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  getRedirectResult,
+
+  signInWithPopup
+} from "firebase/auth";
 import { auth, googleProvider } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
-import googleIcon from "../public/images/google-icon.png"; // Ensure you have a valid path to the Google icon
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({});
   const navigate = useNavigate();
-
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          toast.success("Google login successful!");
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        toast.error("Google login failed: " + err.message);
+      });
+  }, []);
   const loginUser = (e) => {
     e.preventDefault();
-    if (!email) return setError({ email: "Please enter email." });
-    if (!password) return setError({ password: "Please enter password." });
-
+    if (!email) {
+      setError({ email: "Please enter email." });
+      return;
+    }
+    if (!password) {
+      setError({ password: "Please enter password." });
+      return;
+    }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         toast.success("Login successful!");
@@ -26,75 +46,56 @@ export default function Login() {
         navigate("/dashboard");
       })
       .catch((err) => {
-        console.log(err.code);
         if (err.code === "auth/invalid-credential") {
           toast.error("Invalid credentials.");
+        } else if (err.code === "auth/invalid-email") {
+          toast.error("Invalid email format.");
+        } else if (err.code === "auth/wrong-password") {
+          toast.error("Incorrect password.");
         } else {
-          toast.error("Login failed. Please try again.");
+          toast.error("Login failed. Try again.");
         }
       });
-
     setError({});
   };
-
-  const loginWithGoogle = () => {
+    const loginWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
-      .then(() => {
-        toast.success("Google login successful!");
+      .then((data) => {
+        toast.success("User Login Successfully...");
         navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err.code);
-        toast.error(`Google login failed: ${err.code}`);
+
+        toast.error(`Something went wrong... : ${err.code}`);
       });
   };
-
-  return (
-    <div className="login-page">
-      <div className="login-box">
-        <h2 className="login-title">Sign In</h2>
-        <p className="login-subtitle">Welcome back 👋</p>
-        <form onSubmit={loginUser}>
-          <div className="input-group">
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              className={error.email ? "input-error" : ""}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-            />
-            {error.email && <span className="error">{error.email}</span>}
-          </div>
-
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              className={error.password ? "input-error" : ""}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-            />
-            {error.password && <span className="error">{error.password}</span>}
-          </div>
-
-          <button className="btn-login" type="submit">Login</button>
-
-          <div className="divider">or</div>
-
-          <button className="btn-google" type="button" onClick={loginWithGoogle}>
-            {/* <img src="https://logowik.com/content/uploads/images/985_google_g_icon.jpg" alt="google-icon" className="google-icon"  /> */}
-            <img src={googleIcon} alt="google-icon" className="google-icon"  />
-            Continue with Google
-          </button>
-
-          <p className="register-text">
-            Don't have an account? <Link to="/register">Sign up</Link>
-          </p>
-        </form>
+return (
+ <div className="login-wrapper">
+   <div className="login-card">
+     <h2 className="title">Login</h2>
+     <p className="subtitle">Access your account</p>
+     <form onSubmit={loginUser} className="login-form">
+       <div className="form-floating">
+         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={error.email ? "error" : ""} placeholder="Email" />
+         <label>Email</label>
+         {error.email && <small className="error-text">{error.email}</small>}
+       </div>
+       <div className="form-floating">
+         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className={error.password ? "error" : ""} placeholder="Password" />
+         <label>Password</label>
+         {error.password && ( <small className="error-text">{error.password}</small> )}
+       </div>
+       <button type="submit" className="btn-primary"> Login </button>
+       <p className="signup-text"> Don't have an account? <Link to="/register">Sign Up</Link></p>
+     </form>
+     <div className="divider">or</div>
+       <button className="btn-google" onClick={loginWithGoogle}>
+          <img src="https://img.icons8.com/color/20/google-logo.png" alt="Google" />
+          Sign in with Google
+        </button>
       </div>
-      <ToastContainer position="top-center" />
+      <ToastContainer />
     </div>
   );
 }

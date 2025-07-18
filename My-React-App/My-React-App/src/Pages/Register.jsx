@@ -13,74 +13,54 @@ export default function Register() {
 
   const registerUser = (e) => {
     e.preventDefault();
-
     if (!email) {
-      return setError({ email: "Please enter your email." });
+      setError({ email: "Email is required." });
+      return;
     }
-
     if (!password) {
-      return setError({ password: "Please enter your password." });
+      setError({ password: "Password is required." });
+      return;
     }
-
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        toast.success("Account created successfully!");
+        toast.success("Registration successful!");
         setEmail("");
         setPassword("");
       })
       .catch((err) => {
         if (err.code === "auth/invalid-email") {
-          toast.error("Invalid email format.");
+          toast.error("Invalid email address.");
         } else if (err.code === "auth/weak-password") {
           toast.error("Password must be at least 6 characters.");
         } else if (err.code === "auth/email-already-in-use") {
-          toast.error("Email is already registered.");
+          toast.error("Email already in use.");
         } else {
           toast.error("Something went wrong.");
         }
       });
-
     setError({});
   };
-
-  return (
-    <div className="register-page">
-      <div className="register-card">
-        <h2>Create Account</h2>
-        <p className="subtitle">Sign up to get started 🚀</p>
-        <form onSubmit={registerUser}>
-          <div className="form-group">
+return (
+ <div className="register-wrapper">
+   <div className="register-card">
+     <h2>Sign Up</h2>
+     <p className="subtitle">Create your new account</p>
+     <form onSubmit={registerUser}>
+       <div className="form-floating">
+         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={error.email ? "error" : ""} placeholder="Email" />
             <label>Email</label>
-            <input
-              type="email"
-              className={error.email ? "input error" : "input"}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@domain.com"
-            />
-            {error.email && <span className="error-text">{error.email}</span>}
+            {error.email && <small className="error-text">{error.email}</small>}
           </div>
-
-          <div className="form-group">
+          <div className="form-floating">
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className={error.password ? "error" : ""} placeholder="Password" />
             <label>Password</label>
-            <input
-              type="password"
-              className={error.password ? "input error" : "input"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-            />
-            {error.password && <span className="error-text">{error.password}</span>}
+            {error.password && <small className="error-text">{error.password}</small>}
           </div>
-
           <button type="submit" className="btn-register">Register</button>
-
-          <p className="redirect-text">
-            Already have an account? <Link to="/">Sign in</Link>
-          </p>
+          <p className="login-prompt"> Already have an account? <Link to="/">Login</Link></p>
         </form>
       </div>
-      <ToastContainer position="top-center" />
+      <ToastContainer />
     </div>
   );
 }

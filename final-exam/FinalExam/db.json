@@ -1,0 +1,6 @@
+{
+  "rooms": [
+    { "id": 1, "type": "Deluxe", "features": ["AC", "TV"], "available": true }
+  ],
+  "reservations": []
+}
